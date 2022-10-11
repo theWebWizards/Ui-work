@@ -61,11 +61,9 @@ def get_calculated_rating(targetId):
     ratings = Rating.query.filter_by(targetId=targetId)
     total = 0
     if ratings:
-        #ratings = [rating.toJSON for rating in ratings]
-        print(ratings)
         for rating in ratings:
-            print(rating.score)
             total = total + rating.score
-        total = total / ratings.count()
+        if ratings.count() != 0:
+            total = total / ratings.count()
         return total
     return None
