@@ -36,15 +36,25 @@ def get_images_all_action():
     return jsonify(images)
 
 @image_views.route('/api/images/user', methods=['GET'])
-def get_images_by_user_action():
+def get_images_by_user_action_old():
     data = request.json
     images = get_images_by_userid_json(data['userId'])
     return jsonify(images)
 
+@image_views.route('/api/images/<userId>', methods=['GET'])
+def get_images_by_user_action():
+    images = get_images_by_userid_json(userId)
+    return jsonify(images)
+
 @image_views.route('/api/images/id', methods=['GET'])
-def get_images_by_id_action():
+def get_images_by_id_action_old():
     data = request.json
     image = get_image_json(data['id'])
+    return jsonify(image)
+
+@image_views.route('/api/images/<id>', methods=['GET'])
+def get_images_by_id_action():
+    image = get_image_json(id)
     return jsonify(image)
 
 @image_views.route('/api/images', methods=['DELETE'])
