@@ -60,3 +60,8 @@ def delete_user_action():
         delete_user(data['id'])
         return jsonify({"message":"User Deleted"}) 
     return jsonify({"message":"User Not Found"}) 
+
+@user_views.route('/identify', methods=['GET'])
+@jwt_required()
+def identify_user_action():
+    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
