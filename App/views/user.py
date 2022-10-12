@@ -11,6 +11,7 @@ from App.controllers import (
     update_user,
     delete_user,
     login_user,
+    logout_user,
     authenticate
 )
 
@@ -40,9 +41,16 @@ def get_all_users_action():
     return jsonify(users)
 
 @user_views.route('/api/users/byid', methods=['GET'])
-def get_user_action():
+def get_user_action_old():
     data = request.json
     user = get_user(data['id'])
+    if user:
+        return user.toJSON() 
+    return jsonify({"message":"User Not Found"})
+
+@user_views.route('/api/users/<id>', methods=['GET'])
+def get_user_action(id):
+    user = get_user(id)
     if user:
         return user.toJSON() 
     return jsonify({"message":"User Not Found"})
@@ -79,3 +87,9 @@ def identify_user_action():
 #         session["user_id"] = user.id
 #         return jsonify({"message": f"{user.username} logged in"}) 
 #     return jsonify({"message":"Username and password do not match"}) 
+
+@app.route('/api/users/logout', methods=['GET'])
+@login_required
+def logout():
+  logout_user()
+  return jsonify({"message":"User logged out"}) 
