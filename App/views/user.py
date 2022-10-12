@@ -9,7 +9,9 @@ from App.controllers import (
     get_user,
     get_user_by_username,
     update_user,
-    delete_user
+    delete_user,
+    login_user,
+    authenticate
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -61,7 +63,19 @@ def delete_user_action():
         return jsonify({"message":"User Deleted"}) 
     return jsonify({"message":"User Not Found"}) 
 
-@user_views.route('/identify', methods=['GET'])
+@user_views.route('/api/users/identify', methods=['GET'])
 @jwt_required()
 def identify_user_action():
     return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
+
+
+# @user_views.route('/api/users/login', methods=['GET'])
+# def login_user_action():
+#     data = request.json
+#     user = authenticate(data['username'], data['password'])
+#     if user:
+#         login_user(user, False)
+#         session["uname"] = user.username
+#         session["user_id"] = user.id
+#         return jsonify({"message": f"{user.username} logged in"}) 
+#     return jsonify({"message":"Username and password do not match"}) 
