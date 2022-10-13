@@ -77,19 +77,13 @@ def identify_user_action():
     return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
 
 
-# @user_views.route('/api/users/login', methods=['GET'])
+# @user_views.route('/api/users/login', methods=['POST'])
 # def login_user_action():
 #     data = request.json
 #     user = authenticate(data['username'], data['password'])
 #     if user:
 #         login_user(user, False)
-#         session["uname"] = user.username
+#         session["username"] = user.username
 #         session["user_id"] = user.id
 #         return jsonify({"message": f"{user.username} logged in"}) 
 #     return jsonify({"message":"Username and password do not match"}) 
-
-@app.route('/api/users/logout', methods=['GET'])
-@login_required
-def logout():
-  logout_user()
-  return jsonify({"message":"User logged out"}) 
