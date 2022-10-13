@@ -5,8 +5,8 @@ from datetime import datetime
 #Timestamps solve the 'limited number of ratings a day' problem
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    creatorId =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    targetId = db.Column(db.Integer, nullable=False)
+    creatorId =  db.Column(db.Integer,  nullable=False)
+    targetId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     score = db.Column(db.Integer, nullable=False)
     timeStamp = db.Column(db.DateTime , nullable=False)
     
