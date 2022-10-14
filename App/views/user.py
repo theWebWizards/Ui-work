@@ -12,6 +12,7 @@ from App.controllers import (
     delete_user,
     login_user,
     logout_user,
+    get_level,
     authenticate
 )
 
@@ -47,6 +48,7 @@ def get_user_action():
     if user:
         return user.toJSON() 
     return jsonify({"message":"User Not Found"})
+
 
 # @user_views.route('/api/users/byid', methods=['GET'])
 # def get_user_action():
@@ -88,3 +90,12 @@ def identify_user_action():
 #         session["user_id"] = user.id
 #         return jsonify({"message": f"{user.username} logged in"}) 
 #     return jsonify({"message":"Username and password do not match"}) 
+
+@user_views.route('/api/users/level', methods=['GET'])
+def get_level_action():
+    data = request.json
+    user = get_user(data['userId'])
+    if user:
+        level = get_level()
+        return rank.toJSON() 
+    return jsonify({"message":"User Not Found"})
