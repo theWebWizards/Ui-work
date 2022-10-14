@@ -11,7 +11,7 @@ from App.controllers import (
     get_ratings_by_creator,
     get_rating_by_actors,
     update_rating,
-    delete_rating,
+    #delete_rating,
     get_user,
     get_calculated_rating
 )
@@ -75,13 +75,13 @@ def update_rating_action():
         return jsonify({"message":"Rating updated"})
     return jsonify({"message":"Rating not found"})
 
-@rating_views.route('/api/ratings', methods=['DELETE'])
-def delete_rating_action():
-    data = request.json
-    if get_rating(data['id']):
-        delete_rating(data['id'])
-        return jsonify({"message":"Rating deleted"}) 
-    return jsonify({"message":"Rating not found"}) 
+# @rating_views.route('/api/ratings', methods=['DELETE'])
+# def delete_rating_action():
+#     data = request.json
+#     if get_rating(data['id']):
+#         delete_rating(data['id'])
+#         return jsonify({"message":"Rating deleted"}) 
+#     return jsonify({"message":"Rating not found"}) 
 
 @rating_views.route('/api/ratings/calc', methods=['GET'])
 def get_calculated_rating_action():

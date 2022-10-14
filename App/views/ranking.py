@@ -11,7 +11,7 @@ from App.controllers import (
     get_rankings_by_creator,
     get_ranking_by_actors,
     update_ranking,
-    delete_ranking,
+    #delete_ranking,
     get_user,
     get_image
 )
@@ -73,10 +73,20 @@ def update_ranking_action():
         return jsonify({"message":"Ranking updated"})
     return jsonify({"message":"Ranking not found"})
 
-@ranking_views.route('/api/rankings', methods=['DELETE'])
-def delete_ranking_action():
+# @ranking_views.route('/api/rankings', methods=['DELETE'])
+# def delete_ranking_action():
+#     data = request.json
+#     if get_ranking(data['id']):
+#         delete_ranking(data['id'])
+#         return jsonify({"message":"Ranking deleted"}) 
+#     return jsonify({"message":"Ranking not found"}) 
+
+@rating_views.route('/api/rankings/calc', methods=['GET'])
+def get_calculated_ranking_action():
     data = request.json
-    if get_ranking(data['id']):
-        delete_ranking(data['id'])
-        return jsonify({"message":"Ranking deleted"}) 
-    return jsonify({"message":"Ranking not found"}) 
+    if get_image(data['imageId']):
+        ranking = get_calculated_ranking(data['imageId'])
+        if ranking:
+            return jsonify({"calculated ranking": ranking}) 
+        return jsonify({"message":"No rankings by this image found"})
+    return jsonify({"message":"Image not found"})

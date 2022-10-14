@@ -56,10 +56,20 @@ def update_ranking(id, score):
         return ranking
     return None
 
-def delete_ranking(id):
-    ranking = get_ranking(id)
-    if ranking:
-        db.session.delete(ranking)
-        return db.session.commit()
-    return None
+# def delete_ranking(id):
+#     ranking = get_ranking(id)
+#     if ranking:
+#         db.session.delete(ranking)
+#         return db.session.commit()
+#     return None
     
+def get_calculated_ranking(imageId):
+    rankings = Ranking.query.filter_by(imageId=imageId)
+    total = 0
+    if rankings:
+        for ranking in rankings:
+            total = total + ranking.score
+        if rankings.count() != 0:
+            total = total / rankings.count()
+        return total
+    return None
