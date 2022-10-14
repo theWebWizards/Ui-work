@@ -49,7 +49,7 @@ def get_all_users_action():
 #     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users/byid', methods=['GET'])
-def get_user_action(id):
+def get_user_action():
     id = request.args.get('id')
     user = get_user(id)
     if user:
