@@ -10,6 +10,7 @@ from App.controllers import (
     get_ratings_by_target,
     get_ratings_by_creator,
     get_rating_by_actors,
+    get_level,
     update_rating,
     #delete_rating,
     get_user,
@@ -92,3 +93,12 @@ def get_calculated_rating_action():
             return jsonify({"calculated rating": rating}) 
         return jsonify({"message":"No ratings by this user found"})
     return jsonify({"message":"User not found"})
+
+@rating_views.route('/api/ratings/level', methods=['GET'])
+def get_level_action():
+    data = request.json
+    user = get_user(data['id'])
+    if user:
+        level = get_level()
+        return rank.toJSON() 
+    return jsonify({"message":"User Not Found"})

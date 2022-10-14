@@ -67,3 +67,10 @@ def get_calculated_rating(targetId):
             total = total / ratings.count()
         return total
     return None
+
+def get_level(id):
+    ratings = get_ratings_by_creator(id)
+    if ratings:
+        level = ratings.count()
+        return level
+    return None
