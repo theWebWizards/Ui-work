@@ -40,21 +40,21 @@ def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)
 
-# @user_views.route('/api/users/byid', methods=['GET'])
-# def get_user_action_old():
-#     data = request.json
-#     user = get_user(data['id'])
-#     if user:
-#         return user.toJSON() 
-#     return jsonify({"message":"User Not Found"})
-
 @user_views.route('/api/users/byid', methods=['GET'])
 def get_user_action():
-    id = request.args.get('id')
-    user = get_user(id)
+    data = request.json
+    user = get_user(data['id'])
     if user:
         return user.toJSON() 
     return jsonify({"message":"User Not Found"})
+
+# @user_views.route('/api/users/byid', methods=['GET'])
+# def get_user_action():
+#     id = request.args.get('id')
+#     user = get_user(id)
+#     if user:
+#         return user.toJSON() 
+#     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users', methods=['PUT'])
 def update_user_action():
