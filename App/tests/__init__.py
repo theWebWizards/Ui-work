@@ -1,1 +1,1 @@
-from .test_self import *
+from .test_app import *
