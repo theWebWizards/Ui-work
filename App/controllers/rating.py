@@ -71,6 +71,7 @@ def get_calculated_rating(targetId):
 def get_level(id):
     ratings = get_ratings_by_creator(id)
     if ratings:
+        ratings = [rating.toJSON() for rating in ratings]
         level = ratings.count()
         return level
     return None
