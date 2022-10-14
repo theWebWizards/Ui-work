@@ -48,7 +48,7 @@ def get_user_action_old():
         return user.toJSON() 
     return jsonify({"message":"User Not Found"})
 
-@user_views.route('/api/users/<id>', methods=['GET'])
+@user_views.route('/api/users', methods=['GET'])
 def get_user_action(id):
     userx = request.args.get('id')
     user = get_user(id)
