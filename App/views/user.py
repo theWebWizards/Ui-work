@@ -97,5 +97,5 @@ def get_level_action():
     user = get_user(data['userId'])
     if user:
         level = get_level()
-        return rank.toJSON() 
+        return level.toJSON() 
     return jsonify({"message":"User Not Found"})
