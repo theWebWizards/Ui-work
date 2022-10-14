@@ -82,7 +82,7 @@ def update_ranking_action():
 #         return jsonify({"message":"Ranking deleted"}) 
 #     return jsonify({"message":"Ranking not found"}) 
 
-@rating_views.route('/api/rankings/calc', methods=['GET'])
+@ranking_views.route('/api/rankings/calc', methods=['GET'])
 def get_calculated_ranking_action():
     data = request.json
     if get_image(data['imageId']):
