@@ -71,7 +71,8 @@ def get_calculated_rating(targetId):
 def get_level(id):
     ratings = get_ratings_by_creator(id)
     if ratings:
-        ratings = [jsonify(rating) for rating in ratings]
-        level = ratings.count()
+        level = 0;
+        for rating in ratings:
+            level = level + 1
         return level
     return None
