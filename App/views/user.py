@@ -50,8 +50,8 @@ def get_user_action_old():
 
 @user_views.route('/api/users', methods=['GET'])
 def get_user_action(id):
-    userx = request.args.get('id')
-    user = get_user(id)
+    user = request.args.get('id')
+    #user = get_user(id)
     if user:
         return user.toJSON() 
     return jsonify({"message":"User Not Found"})
