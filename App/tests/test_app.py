@@ -29,23 +29,23 @@ class UserUnitTests(unittest.TestCase):
 
     # pure function no side effects or integrations called
     def test_toJSON(self):
-        user = User("bob", "bobpass")
+        user = User("adam", "adampass")
         user_json = user.toJSON()
-        self.assertDictEqual(user_json, {"id":None, "username":"bob", "images": [], "ratings": []})
+        self.assertDictEqual(user_json, {"id":None, "username":"adam", "images": [], "ratings": []})
     
     def test_authenticate():
-        user = create_user("bob", "bobpass")
-        assert authenticate("bob", "bobpass") != None
+        user = create_user("eve", "evepass")
+        assert authenticate("eve", "evepass") != None
 
     def test_hashed_password(self):
         password = "mypass"
         hashed = generate_password_hash(password, method='sha256')
-        user = User("bob", password)
+        user = User("lilly", password)
         assert user.password != password
 
     def test_check_password(self):
         password = "mypass"
-        user = User("bob", password)
+        user = User("scott", password)
         assert user.check_password(password)
 
 '''
@@ -54,7 +54,7 @@ class UserUnitTests(unittest.TestCase):
 
 # This fixture creates an empty database for the test and deletes it after the test
 # scope="class" would execute the fixture once and resued for all methods in the class
-@pytest.fixture(autouse=True, scope="module")
+@pytest.fixture(autouse=True, scope="class")
 def empty_db():
     app.config.update({'TESTING': True, 'SQLALCHEMY_DATABASE_URI': 'sqlite:///test.db'})
     create_db(app)
