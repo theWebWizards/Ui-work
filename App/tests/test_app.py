@@ -65,10 +65,11 @@ def empty_db():
 class UsersIntegrationTests(unittest.TestCase):
 
     def test_create_user(self):
-        user = create_user("rick", "bobpass")
-        assert user.username == "rick"
+        user = create_user("bob", "bobpass")
+        assert user.username == "bob"
 
     def test_get_all_users_json(self):
+        user = create_user("rick", "bobpass")
         users_json = get_all_users_json()
         self.assertListEqual([{"id":1, "username":"bob", "images": [], "ratings": []}, {"id":2, "username":"rick", "images": [], "ratings": []}], users_json)
 
