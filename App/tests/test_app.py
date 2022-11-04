@@ -33,6 +33,10 @@ class UserUnitTests(unittest.TestCase):
         user_json = user.toJSON()
         self.assertDictEqual(user_json, {"id":None, "username":"bob", "images": [], "ratings": []})
     
+    def test_authenticate():
+        user = create_user("bob", "bobpass")
+        assert authenticate("bob", "bobpass") != None
+
     def test_hashed_password(self):
         password = "mypass"
         hashed = generate_password_hash(password, method='sha256')
@@ -57,10 +61,6 @@ def empty_db():
     yield app.test_client()
     os.unlink(os.getcwd()+'/App/test.db')
 
-
-def test_authenticate():
-        user = create_user("bob", "bobpass")
-        assert authenticate("bob", "bobpass") != None
 
 class UsersIntegrationTests(unittest.TestCase):
 
