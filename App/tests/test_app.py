@@ -45,10 +45,7 @@ class UserUnitTests(unittest.TestCase):
         user = User("bob", password)
         assert user.check_password(password)
 
-    def test_get_user_by_username(self):
-        user = User("bob", "bobpass")
-        user2 =  get_user_by_username("bob")
-        assert user2 == None
+    
 
 '''
     Integration Tests
@@ -83,3 +80,7 @@ class UsersIntegrationTests(unittest.TestCase):
         update_user(1, "ronnie")
         user = get_user(1)
         assert user.username == "ronnie"
+
+    def test_get_user_by_username(self):
+        user2 = get_user_by_username("bob")
+        assert user2 != None
