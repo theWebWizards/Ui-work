@@ -1,5 +1,6 @@
 import os, tempfile, pytest, logging, unittest
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask import jsonify
 
 from App.main import create_app
 from App.database import create_db
@@ -44,9 +45,10 @@ class UserUnitTests(unittest.TestCase):
         user = User("bob", password)
         assert user.check_password(password)
 
-    # def test_get_user_by_username(self):
-    #     user = User("bob", "bobpass")
-    #     assert get_user_by_username("bob")
+    def test_get_user_by_username(self):
+        user = User("bob", "bobpass")
+        user2 =  get_user_by_username("bob")
+        assert user2 == None
 
 '''
     Integration Tests

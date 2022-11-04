@@ -31,7 +31,8 @@ def static_user_page():
 @user_views.route('/api/users', methods=['POST'])
 def create_user_action():
     data = request.json
-    if get_user_by_username(data['username']):
+    user = get_user_by_username(data['username'])
+    if user:
         return jsonify({"message":"Username Already Taken"}) 
     user = create_user(data['username'], data['password'])
     return jsonify({"message":"User Created"}) 
