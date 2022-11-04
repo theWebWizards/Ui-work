@@ -58,13 +58,11 @@ def empty_db():
     os.unlink(os.getcwd()+'/App/test.db')
 
 
-
-
-class UsersIntegrationTests(unittest.TestCase):
-
-    def test_authenticate():
+def test_authenticate():
         user = create_user("bob", "bobpass")
         assert authenticate("bob", "bobpass") != None
+
+class UsersIntegrationTests(unittest.TestCase):
 
     def test_create_user(self):
         user = create_user("rick", "bobpass")
