@@ -1,7 +1,7 @@
 import os, tempfile, pytest, logging, unittest
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import jsonify
-from datetime import date
+from datetime import date, datetime
 
 from App.main import create_app
 from App.database import create_db
@@ -31,6 +31,8 @@ from App.controllers import (
     get_ratings_by_creator,
     get_rating_by_actors,
     update_rating,
+    get_calculated_rating,
+    get_level,
 
     create_ranking, 
     get_all_rankings,
@@ -193,3 +195,91 @@ class ImageIntegrationTests(unittest.TestCase):
         assert image == None
 
     
+class RatingIntegrationTests(unittest.TestCase):
+
+    def test_create_rating(self):
+        rating = create_rating(1, 2, 3)
+        assert rating.id == 1
+
+    def test_get_rating(self):
+        rating = get_rating(1)
+        assert rating.creatorId == 1
+
+    def test_get_all_ratings(self):
+        rating = create_rating(2, 1, 4)
+        ratingList = []
+        ratingList.append(get_rating(1))
+        ratingList.append(get_rating(2))
+        self.assertListEqual(get_all_ratings(), ratingList)
+
+    def test_get_all_ratings_json(self):
+        ratings_json = get_all_ratings_json()
+        self.assertListEqual([{"id":1, "creatorId":1, "targetId": 2, "score":3, "timeStamp": date.today()}, {"id":2, "creatorId":2, "targetId": 1, "score":4, "timeStamp": date.today()}], ratings_json)
+
+    def test_get_ratings_by_creatorid(self):
+        ratings = get_ratings_by_creator(2)
+        self.assertListEqual(ratings, [{"id":2, "creatorId":2, "targetId": 1, "score":4, "timeStamp": date.today()}])
+
+    def test_get_ratings_by_targetid(self):
+        ratings = get_ratings_by_target(2)
+        self.assertListEqual(ratings, [{"id":1, "creatorId":1, "targetId": 2, "score":3, "timeStamp": date.today()}])
+
+    def test_get_rating_by_actors(self):
+        rating = get_rating_by_actors(1, 2)
+        assert rating.id == 1
+
+    def test_update_rating(self):
+        rating = update_rating(1, 5)
+        assert rating.score == 5
+
+    def test_try_calculate_rating(self):
+        user = create_user("phil", "philpass")
+        rating = create_rating(user.id, 2, 5)
+        calculated = get_calculated_rating(2)
+        assert calculated == 4
+
+    def test_get_level(self):
+        assert get_level(1) == 1
+
+
+class RankingIntegrationTests(unittest.TestCase):
+
+    def test_create_rating(self):
+        ranking = create_ranking(1, 2, 3)
+        assert ranking.id == 1
+
+    def test_get_ranking(self):
+        ranking = get_ranking(1)
+        assert ranking.creatorId == 1
+
+    def test_get_all_rankings(self):
+        ranking = create_ranking(2, 1, 4)
+        rankingList = []
+        rankingList.append(get_ranking(1))
+        rankingList.append(get_ranking(2))
+        self.assertListEqual(get_all_rankings(), rankingList)
+
+    def test_get_all_rankings_json(self):
+        rankings_json = get_all_rankings_json()
+        self.assertListEqual([{"id":1, "creatorId":1, "imageId": 2, "score":3}, {"id":2, "creatorId":2, "imageId": 1, "score":4}], rankings_json)
+
+    def test_get_rankings_by_creatorid(self):
+        rankings = get_rankings_by_creator(2)
+        self.assertListEqual(rankings, [{"id":2, "creatorId":2, "imageId": 1, "score":4}])
+
+    def test_get_rankings_by_imageid(self):
+        rankings = get_rankings_by_image(2)
+        self.assertListEqual(rankings, [{"id":1, "creatorId":1, "imageId": 2, "score":3}])
+
+    def test_get_ranking_by_actors(self):
+        ranking = get_ranking_by_actors(1, 2)
+        assert ranking.id == 1
+
+    def test_update_ranking(self):
+        ranking = update_ranking(1, 5)
+        assert ranking.score == 5
+
+    def test_try_calculate_ranking(self):
+        ranking = create_ranking(3, 2, 5)
+        calculated = get_calculated_ranking(2)
+        assert calculated == 4

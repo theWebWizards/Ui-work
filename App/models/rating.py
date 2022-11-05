@@ -8,7 +8,7 @@ class Rating(db.Model):
     creatorId =  db.Column(db.Integer,  nullable=False)
     targetId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    timeStamp = db.Column(db.DateTime , nullable=False)
+    timeStamp = db.Column(db.Date , nullable=False)
     
     def __init__(self, creatorId, targetId, score):
         self.creatorId = creatorId
