@@ -45,7 +45,6 @@ class UserUnitTests(unittest.TestCase):
         user = User("bob", password)
         assert user.check_password(password)
 
-    
 
 '''
     Integration Tests
@@ -82,5 +81,5 @@ class UsersIntegrationTests(unittest.TestCase):
         assert user.username == "ronnie"
 
     def test_get_user_by_username(self):
-        user2 = get_user_by_username("bob")
-        assert user2 != None
+        user = get_user_by_username("bob")
+        assert user != None
