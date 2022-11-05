@@ -1,5 +1,5 @@
 from App.database import db
-from datetime import datetime
+from datetime import date
 
 #Ratings are created by users when they rate other users' profiles
 #Timestamps solve the 'limited number of ratings a day' problem
@@ -14,7 +14,7 @@ class Rating(db.Model):
         self.creatorId = creatorId
         self.targetId = targetId
         self.score = score
-        self.timeStamp = datetime.now()
+        self.timeStamp = date.today()
     
     def toJSON(self):
         return{

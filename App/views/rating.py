@@ -11,7 +11,6 @@ from App.controllers import (
     get_ratings_by_creator,
     get_rating_by_actors,
     update_rating,
-    #delete_rating,
     get_user,
     get_calculated_rating
 )
