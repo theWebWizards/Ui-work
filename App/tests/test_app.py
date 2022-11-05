@@ -161,4 +161,35 @@ class UsersIntegrationTests(unittest.TestCase):
         user = get_user(3)
         assert user == None
 
+class ImageIntegrationTests(unittest.TestCase):
+
+    def test_create_image(self):
+        image = create_image(2)
+        assert image.id == 1
+
+    def test_get_image(self):
+        image = get_image(1)
+        assert image.userId == 2
+
+    def test_get_all_images(self):
+        image = create_image(1)
+        imageList = []
+        imageList.append(get_image(1))
+        imageList.append(get_image(2))
+        self.assertListEqual(get_all_images(), imageList)
+
+    def test_get_all_images_json(self):
+        images_json = get_all_images_json()
+        self.assertListEqual([{"id":1, "rankings":[], "userId": 2}, {"id":2, "rankings":[], "userId": 1}], images_json)
+
+    def test_get_images_by_userid_json(self):
+        images_json = get_images_by_userid_json(2)
+        self.assertListEqual(images_json, [{"id":1, "rankings":[], "userId": 2}])
+
+    def test_delete_image(self):
+        image = create_image(1)
+        delete_image(image.id)
+        image = get_image(image.id)
+        assert image == None
+
     
