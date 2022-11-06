@@ -88,6 +88,6 @@ def get_calculated_ranking_action():
     if get_image(data['imageId']):
         ranking = get_calculated_ranking(data['imageId'])
         if ranking:
-            return jsonify({"calculated ranking": ranking}) 
+            return jsonify({"calculated_ranking": ranking}) 
         return jsonify({"message":"No rankings by this image found"})
     return jsonify({"message":"Image not found"})
